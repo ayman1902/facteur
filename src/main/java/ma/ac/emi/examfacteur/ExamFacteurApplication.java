@@ -50,6 +50,7 @@ public class ExamFacteurApplication {
             centrePostal1.setCentreRegional(centreRegional);
 
             centrePostalRepo.save(centrePostal1);*/
+/*
 
             CentreLocal centreLocal = new CentreLocal("lmopa",369,"J5","CYM","RABAT");
             centreLocalRepo.save(centreLocal);
@@ -87,6 +88,7 @@ public class ExamFacteurApplication {
 
             colis.setCentrePostals(colslist);
             colisRepo.save(colis);
+*/
 
 
 

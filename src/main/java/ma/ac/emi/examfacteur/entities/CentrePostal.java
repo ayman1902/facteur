@@ -1,12 +1,15 @@
 package ma.ac.emi.examfacteur.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="CentreType", discriminatorType= DiscriminatorType.STRING, length=20)
+
 public class CentrePostal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,19 +19,32 @@ public class CentrePostal {
     private String rue;
     private String quartier;
     private String ville;
-    @ManyToOne
-    @JoinColumn//(nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "centreRegional")
+    @JsonIgnore
     private CentreRegional centreRegional;
+
+
 
     @OneToMany(mappedBy = "centrePostal")
     private List<Facteur> facteurs;
     @OneToMany(mappedBy = "centrePostal")
     private List<Habitant> habitants;
 
-
     @ManyToMany(mappedBy = "centrePostals")
-
     private List<Colis> colis;
+
+
+
+
+
+
+
+
+
+
+
+
 
     public CentrePostal(String nom, int numero, String rue, String quartier, String ville) {
         this.nom = nom;
@@ -109,6 +125,7 @@ public class CentrePostal {
         return facteurs;
     }
 
+
     public void setFacteurs(List<Facteur> facteurs) {
         this.facteurs = facteurs;
     }
@@ -144,9 +161,9 @@ public class CentrePostal {
                 ", quartier='" + quartier + '\'' +
                 ", ville='" + ville + '\'' +
                 ", centreRegional=" + centreRegional +
-                ", colis=" + colis +
-                ", facteurs=" + facteurs +
-                ", habitants=" + habitants +
+                //", colis=" + colis +
+                //", facteurs=" + facteurs +
+                //", habitants=" + habitants +
                 '}';
     }
 }

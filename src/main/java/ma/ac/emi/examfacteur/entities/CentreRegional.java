@@ -5,10 +5,14 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue(value = "regional")
 public class CentreRegional extends CentrePostal{
 
-    @OneToMany(mappedBy = "centreRegional")
+    @OneToMany(mappedBy = "centreRegional", fetch = FetchType.EAGER)
     private List<CentrePostal> centrePostals;
+
+
+
 
     public CentreRegional(String nom, int numero, String rue, String quartier, String ville) {
         super(nom, numero, rue, quartier, ville);
